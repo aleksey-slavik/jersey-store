@@ -1,8 +1,17 @@
 package com.globallogic.store.jersey.common;
 
-public class Command {
+public enum Command {
 
-    public class Request {
-        public static final String GET_USERS = "http://localhost:8080/users";
+    FIND_ALL("all"),
+    FIND_BY_ID("id"),
+    FIND_BY_KEY("key"),
+    CREATE("create"),
+    UPDATE("update"),
+    DELETE("delete");
+
+    String command;
+
+    Command(String command) {
+        this.command = command;
     }
 }

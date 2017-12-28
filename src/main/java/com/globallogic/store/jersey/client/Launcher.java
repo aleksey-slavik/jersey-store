@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Launcher {
 
     private static boolean isAuth = false;
+    private static boolean isClose = false;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -26,6 +27,11 @@ public class Launcher {
         }
 
         System.out.println("You successfully login!");
+
+        while (isClose) {
+            String command = scanner.nextLine();
+
+        }
     }
 
 }

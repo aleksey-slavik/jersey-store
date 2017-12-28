@@ -17,6 +17,6 @@ public class AuthValidator {
     }
 
     private String createRequest(String username, String password) {
-        return Command.Request.GET_USERS + "/" + username + "/" + password;
+        return "http://localhost:8080/users/" + username + "/" + password;
     }
 }
