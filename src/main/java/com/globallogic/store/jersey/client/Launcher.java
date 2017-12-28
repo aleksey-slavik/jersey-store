@@ -3,6 +3,7 @@ package com.globallogic.store.jersey.client;
 import com.globallogic.store.jersey.common.Command;
 import com.globallogic.store.jersey.common.Executor;
 import com.globallogic.store.jersey.common.Type;
+import com.globallogic.store.jersey.model.Order;
 import com.globallogic.store.jersey.model.Product;
 import com.globallogic.store.jersey.model.User;
 import com.globallogic.store.jersey.common.AuthValidator;
@@ -66,12 +67,21 @@ public class Launcher {
                 }
                 break;
             case PRODUCTS:
-                Executor<Product> executor = new Executor<>(Product.class, Product[].class, Type.PRODUCTS);
+                Executor<Product> productExecutor = new Executor<>(Product.class, Product[].class, Type.PRODUCTS);
                 System.out.println(Product.header());
                 System.out.println(Product.separator());
-                for (Product product : executor.execute(command, key)) {
+                for (Product product : productExecutor.execute(command, key)) {
                     System.out.println(product);
                     System.out.println(Product.separator());
+                }
+                break;
+            case ORDERS:
+                Executor<Order> orderExecutor = new Executor<>(Order.class, Order[].class, Type.ORDERS);
+                System.out.println(Order.header());
+                System.out.println(Order.separator());
+                for (Order order : orderExecutor.execute(command, key)) {
+                    System.out.println(order);
+                    System.out.println(Order.separator());
                 }
                 break;
             default:
