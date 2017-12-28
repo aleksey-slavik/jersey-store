@@ -13,7 +13,7 @@ public class AuthValidator {
     public boolean validate(String username, String password) {
         WebResource webResource = ClientInstance.getInstance().getClient().resource(createRequest(username, password));
         User[] response = webResource.accept(MediaType.APPLICATION_JSON).get(User[].class);
-        return response[0] != null && response[0].getRole().equals("ADMIN");
+        return response.length != 0 && response[0].getRole().equals("ADMIN");
     }
 
     private String createRequest(String username, String password) {
