@@ -14,4 +14,18 @@ public enum Command {
     Command(String command) {
         this.command = command;
     }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public static Command getByKey(String key) {
+        for (Command command : Command.values()) {
+            if (command.getCommand().equals(key)) {
+                return command;
+            }
+        }
+
+        throw new IllegalStateException();
+    }
 }

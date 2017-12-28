@@ -1,5 +1,9 @@
 package com.globallogic.store.jersey.client;
 
+import com.globallogic.store.jersey.common.Command;
+import com.globallogic.store.jersey.common.Executor;
+import com.globallogic.store.jersey.common.Type;
+import com.globallogic.store.jersey.model.User;
 import com.globallogic.store.jersey.user.AuthValidator;
 
 import java.util.Scanner;
@@ -13,7 +17,7 @@ public class Launcher {
         Scanner scanner = new Scanner(System.in);
         AuthValidator authValidator = new AuthValidator();
 
-        while (!isAuth) {
+        /*while (!isAuth) {
             System.out.println("Enter your username:");
             String username = scanner.nextLine();
             System.out.println("Enter your password:");
@@ -24,7 +28,7 @@ public class Launcher {
             } else {
                 System.out.println("Error in login data or user haven't permissions!");
             }
-        }
+        }*/
 
         System.out.println("----------------------------------------");
         System.out.println("You successfully login!");
@@ -34,14 +38,32 @@ public class Launcher {
 
         while (!isClose) {
             String request = scanner.nextLine();
-
-            switch (request) {
-                case "exit":
-                    isClose = true;
-                    break;
-                default:
-                    System.out.println("Unknown request");
+            if (request.equals("exit")) {
+                isClose = true;
+                System.out.println("Good bye!");
+            } else {
+                execute(request);
             }
+        }
+    }
+
+    private static void execute(String request) {
+        String[] parts = request.split(" ");
+        Type type = Type.getByKey(parts[0]);
+        Command command = Command.getByKey(parts[1]);
+
+        switch (type) {
+            case USERS:
+                Executor<User[]> executor = new Executor<>(User[].class, Type.USERS);
+                System.out.println(User.header());
+                System.out.println(User.separator());
+                for (User user : executor.execute(command)) {
+                    System.out.println(user);
+                    System.out.println(User.separator());
+                }
+                break;
+            default:
+                System.out.println("Unknown request");
         }
     }
 }

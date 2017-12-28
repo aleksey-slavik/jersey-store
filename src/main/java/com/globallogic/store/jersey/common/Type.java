@@ -15,4 +15,14 @@ public enum Type {
     public String getType() {
         return type;
     }
+
+    public static Type getByKey(String key) {
+        for (Type type : Type.values()) {
+            if (type.getType().equals(key)) {
+                return type;
+            }
+        }
+
+        throw new IllegalStateException();
+    }
 }

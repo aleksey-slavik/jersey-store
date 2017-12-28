@@ -1,4 +1,4 @@
-package com.globallogic.store.jersey;
+package com.globallogic.store.jersey.model;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -81,16 +81,34 @@ public class User {
         this.role = role;
     }
 
+    private static String format = "%5s|%15s|%15s|%15s|%15s|%15s|%15s";
+
+    public static String header() {
+        return String.format(
+                format,
+                "id",
+                "firstname",
+                "lastname",
+                "username",
+                "password",
+                "email",
+                "role");
+    }
+
+    public static String separator() {
+        return "------------------------------------------------------------------------------------------------------";
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return String.format(
+                format,
+                id,
+                firstname,
+                lastname,
+                username,
+                password,
+                email,
+                role);
     }
 }
