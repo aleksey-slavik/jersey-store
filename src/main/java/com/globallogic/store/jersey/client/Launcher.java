@@ -26,12 +26,22 @@ public class Launcher {
             }
         }
 
+        System.out.println("----------------------------------------");
         System.out.println("You successfully login!");
+        System.out.println("Please insert your request in next form:");
+        System.out.println("[type] [command]");
+        System.out.println("----------------------------------------");
 
-        while (isClose) {
-            String command = scanner.nextLine();
+        while (!isClose) {
+            String request = scanner.nextLine();
 
+            switch (request) {
+                case "exit":
+                    isClose = true;
+                    break;
+                default:
+                    System.out.println("Unknown request");
+            }
         }
     }
-
 }

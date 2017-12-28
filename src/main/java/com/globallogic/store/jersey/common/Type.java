@@ -6,9 +6,13 @@ public enum Type {
     PRODUCTS("products"),
     ORDERS("orders");
 
-    String type;
+    private String type;
 
     Type(String type) {
         this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 }
