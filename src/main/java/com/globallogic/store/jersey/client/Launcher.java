@@ -4,7 +4,7 @@ import com.globallogic.store.jersey.common.Command;
 import com.globallogic.store.jersey.common.Executor;
 import com.globallogic.store.jersey.common.Type;
 import com.globallogic.store.jersey.model.User;
-import com.globallogic.store.jersey.user.AuthValidator;
+import com.globallogic.store.jersey.common.AuthValidator;
 
 import java.util.Scanner;
 
@@ -51,13 +51,14 @@ public class Launcher {
         String[] parts = request.split(" ");
         Type type = Type.getByKey(parts[0]);
         Command command = Command.getByKey(parts[1]);
+        String key = parts.length == 3 ? parts[2] : null;
 
         switch (type) {
             case USERS:
-                Executor<User[]> executor = new Executor<>(User[].class, Type.USERS);
+                Executor<User> executor = new Executor<>(User.class, User[].class, Type.USERS);
                 System.out.println(User.header());
                 System.out.println(User.separator());
-                for (User user : executor.execute(command)) {
+                for (User user : executor.execute(command, key)) {
                     System.out.println(user);
                     System.out.println(User.separator());
                 }

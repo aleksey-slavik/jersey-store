@@ -1,4 +1,4 @@
-package com.globallogic.store.jersey.user;
+package com.globallogic.store.jersey.common;
 
 import com.globallogic.store.jersey.model.User;
 import com.globallogic.store.jersey.common.ClientInstance;
