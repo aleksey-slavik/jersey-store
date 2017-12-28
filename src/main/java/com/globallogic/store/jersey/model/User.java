@@ -25,18 +25,6 @@ public class User {
     @JsonProperty("role")
     private String role;
 
-    public User() {
-    }
-
-    public User(String firstname, String lastname, String username, String password, String email, String role) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
-
     public Long getId() {
         return id;
     }

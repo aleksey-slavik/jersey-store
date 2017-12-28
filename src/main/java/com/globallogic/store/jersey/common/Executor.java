@@ -29,16 +29,6 @@ public class Executor<T> {
         return webResource.accept(MediaType.APPLICATION_JSON).get(tClass);
     }
 
-    private T create(T entity) {
-        WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType());
-        return webResource.accept(MediaType.APPLICATION_JSON).post(tClass, entity);
-    }
-
-    private T update(Long id, T entity) {
-        WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/" + id);
-        return webResource.accept(MediaType.APPLICATION_JSON).put(tClass, entity);
-    }
-
     private T delete(Long id) {
         WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/" + id);
         return webResource.accept(MediaType.APPLICATION_JSON).delete(tClass);
@@ -52,10 +42,6 @@ public class Executor<T> {
                 Long id = Long.valueOf(key);
                 return Collections.singletonList(findById(id));
             case FIND_BY_KEY:
-                break;
-            case CREATE:
-                break;
-            case UPDATE:
                 break;
             case DELETE:
                 id = Long.valueOf(key);

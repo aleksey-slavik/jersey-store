@@ -3,6 +3,7 @@ package com.globallogic.store.jersey.client;
 import com.globallogic.store.jersey.common.Command;
 import com.globallogic.store.jersey.common.Executor;
 import com.globallogic.store.jersey.common.Type;
+import com.globallogic.store.jersey.model.Product;
 import com.globallogic.store.jersey.model.User;
 import com.globallogic.store.jersey.common.AuthValidator;
 
@@ -17,7 +18,7 @@ public class Launcher {
         Scanner scanner = new Scanner(System.in);
         AuthValidator authValidator = new AuthValidator();
 
-        /*while (!isAuth) {
+        while (!isAuth) {
             System.out.println("Enter your username:");
             String username = scanner.nextLine();
             System.out.println("Enter your password:");
@@ -28,7 +29,7 @@ public class Launcher {
             } else {
                 System.out.println("Error in login data or user haven't permissions!");
             }
-        }*/
+        }
 
         System.out.println("----------------------------------------");
         System.out.println("You successfully login!");
@@ -56,12 +57,21 @@ public class Launcher {
 
         switch (type) {
             case USERS:
-                Executor<User> executor = new Executor<>(User.class, User[].class, Type.USERS);
+                Executor<User> userExecutor = new Executor<>(User.class, User[].class, Type.USERS);
                 System.out.println(User.header());
                 System.out.println(User.separator());
-                for (User user : executor.execute(command, key)) {
+                for (User user : userExecutor.execute(command, key)) {
                     System.out.println(user);
                     System.out.println(User.separator());
+                }
+                break;
+            case PRODUCTS:
+                Executor<Product> executor = new Executor<>(Product.class, Product[].class, Type.PRODUCTS);
+                System.out.println(Product.header());
+                System.out.println(Product.separator());
+                for (Product product : executor.execute(command, key)) {
+                    System.out.println(product);
+                    System.out.println(Product.separator());
                 }
                 break;
             default:
