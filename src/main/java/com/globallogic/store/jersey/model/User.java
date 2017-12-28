@@ -25,6 +25,18 @@ public class User {
     @JsonProperty("role")
     private String role;
 
+    public User() {
+    }
+
+    public User(String firstname, String lastname, String username, String password, String email, String role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
@@ -84,15 +96,7 @@ public class User {
     private static String format = "%5s|%15s|%15s|%15s|%15s|%15s|%15s";
 
     public static String header() {
-        return String.format(
-                format,
-                "id",
-                "firstname",
-                "lastname",
-                "username",
-                "password",
-                "email",
-                "role");
+        return String.format(format, "id", "firstname", "lastname", "username", "password", "email", "role");
     }
 
     public static String separator() {
@@ -101,14 +105,6 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format(
-                format,
-                id,
-                firstname,
-                lastname,
-                username,
-                password,
-                email,
-                role);
+        return String.format(format, id, firstname, lastname, username, password, email, role);
     }
 }

@@ -1,7 +1,6 @@
 package com.globallogic.store.jersey.common;
 
 import com.globallogic.store.jersey.model.User;
-import com.globallogic.store.jersey.common.ClientInstance;
 import com.sun.jersey.api.client.WebResource;
 
 import javax.ws.rs.core.MediaType;

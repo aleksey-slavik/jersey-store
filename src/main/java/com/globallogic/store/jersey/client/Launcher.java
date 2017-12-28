@@ -38,6 +38,7 @@ public class Launcher {
 
         while (!isClose) {
             String request = scanner.nextLine();
+
             if (request.equals("exit")) {
                 isClose = true;
                 System.out.println("Good bye!");

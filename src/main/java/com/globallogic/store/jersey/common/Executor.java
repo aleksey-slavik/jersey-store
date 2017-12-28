@@ -29,6 +29,21 @@ public class Executor<T> {
         return webResource.accept(MediaType.APPLICATION_JSON).get(tClass);
     }
 
+    private T create(T entity) {
+        WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType());
+        return webResource.accept(MediaType.APPLICATION_JSON).post(tClass, entity);
+    }
+
+    private T update(Long id, T entity) {
+        WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/" + id);
+        return webResource.accept(MediaType.APPLICATION_JSON).put(tClass, entity);
+    }
+
+    private T delete(Long id) {
+        WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/" + id);
+        return webResource.accept(MediaType.APPLICATION_JSON).delete(tClass);
+    }
+
     public List<T> execute(Command command, String key) {
         switch (command) {
             case FIND_ALL:
@@ -43,7 +58,8 @@ public class Executor<T> {
             case UPDATE:
                 break;
             case DELETE:
-                break;
+                id = Long.valueOf(key);
+                return Collections.singletonList(delete(id));
         }
 
         throw new IllegalStateException();
