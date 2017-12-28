@@ -1,26 +1,31 @@
 package com.globallogic.store.jersey.client;
 
-import com.globallogic.store.jersey.common.Command;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+import com.globallogic.store.jersey.user.AuthValidator;
+
+import java.util.Scanner;
 
 public class Launcher {
-    public static void main(String[] args) {
-        Client client = Client.create();
-        String user = "admin";
-        String password = "admin";
-        WebResource webResource = client.resource(Command.Request.GET_VALIDATE_USER_DATA(user, password));
-        ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
 
-        if (response.getStatus() != 200) {
-            System.out.println("Failed with HTTP Error code: " + response.getStatus());
-            String error= response.getEntity(String.class);
-            System.out.println("Error: "+error);
-        } else {
-            String output = response.getEntity(String.class);
-            System.out.println("Output from Server .... ");
-            System.out.println(output);
+    private static boolean isAuth = false;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        AuthValidator authValidator = new AuthValidator();
+
+        while (!isAuth) {
+            System.out.println("Enter your username:");
+            String username = scanner.nextLine();
+            System.out.println("Enter your password:");
+            String password = scanner.nextLine();
+
+            if (authValidator.validate(username, password)) {
+                isAuth = true;
+            } else {
+                System.out.println("Error in login data or user haven't permissions!");
+            }
         }
+
+        System.out.println("You successfully login!");
     }
+
 }
