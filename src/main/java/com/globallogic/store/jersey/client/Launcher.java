@@ -3,6 +3,10 @@ package com.globallogic.store.jersey.client;
 import com.globallogic.store.jersey.common.Command;
 import com.globallogic.store.jersey.common.Executor;
 import com.globallogic.store.jersey.common.Type;
+import com.globallogic.store.jersey.exception.AuthException;
+import com.globallogic.store.jersey.exception.IllegalCommandException;
+import com.globallogic.store.jersey.exception.IllegalTypeException;
+import com.globallogic.store.jersey.exception.WrongRequestException;
 import com.globallogic.store.jersey.model.Order;
 import com.globallogic.store.jersey.model.Product;
 import com.globallogic.store.jersey.model.User;
@@ -25,9 +29,10 @@ public class Launcher {
             System.out.println("Enter your password:");
             String password = scanner.nextLine();
 
-            if (authValidator.validate(username, password)) {
+            try {
+                authValidator.validate(username, password);
                 isAuth = true;
-            } else {
+            } catch (AuthException e) {
                 System.out.println("Error in login data or user haven't permissions!");
             }
         }
@@ -35,7 +40,7 @@ public class Launcher {
         System.out.println("----------------------------------------");
         System.out.println("You successfully login!");
         System.out.println("Please insert your request in next form:");
-        System.out.println("[type] [command]");
+        System.out.println("type command [parameter]");
         System.out.println("----------------------------------------");
 
         while (!isClose) {
@@ -45,13 +50,26 @@ public class Launcher {
                 isClose = true;
                 System.out.println("Good bye!");
             } else {
-                execute(request);
+                try {
+                    execute(request);
+                } catch (IllegalTypeException e) {
+                    System.out.println("Unknown request type!");
+                } catch (IllegalCommandException e) {
+                    System.out.println("Unknown request command!");
+                } catch (WrongRequestException e) {
+                    System.out.println("Request does not match the pattern!");
+                }
             }
         }
     }
 
-    private static void execute(String request) {
+    private static void execute(String request) throws IllegalTypeException, IllegalCommandException, WrongRequestException {
         String[] parts = request.split(" ");
+
+        if (parts.length < 2 || parts.length > 3) {
+            throw new WrongRequestException();
+        }
+
         Type type = Type.getByKey(parts[0]);
         Command command = Command.getByKey(parts[1]);
         String key = parts.length == 3 ? parts[2] : null;
@@ -83,9 +101,6 @@ public class Launcher {
                     System.out.println(order);
                     System.out.println(Order.separator());
                 }
-                break;
-            default:
-                System.out.println("Unknown request");
         }
     }
 }

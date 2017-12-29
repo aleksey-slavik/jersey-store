@@ -1,5 +1,7 @@
 package com.globallogic.store.jersey.common;
 
+import com.globallogic.store.jersey.exception.IllegalTypeException;
+
 public enum Type {
 
     USERS("users"),
@@ -16,13 +18,13 @@ public enum Type {
         return type;
     }
 
-    public static Type getByKey(String key) {
+    public static Type getByKey(String key) throws IllegalTypeException {
         for (Type type : Type.values()) {
             if (type.getType().equals(key)) {
                 return type;
             }
         }
 
-        throw new IllegalStateException();
+        throw new IllegalTypeException();
     }
 }

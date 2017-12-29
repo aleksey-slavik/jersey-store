@@ -1,5 +1,7 @@
 package com.globallogic.store.jersey.common;
 
+import com.globallogic.store.jersey.exception.IllegalCommandException;
+
 public enum Command {
 
     FIND_ALL("all"),
@@ -17,13 +19,13 @@ public enum Command {
         return command;
     }
 
-    public static Command getByKey(String key) {
+    public static Command getByKey(String key) throws IllegalCommandException {
         for (Command command : Command.values()) {
             if (command.getCommand().equals(key)) {
                 return command;
             }
         }
 
-        throw new IllegalStateException();
+        throw new IllegalCommandException();
     }
 }

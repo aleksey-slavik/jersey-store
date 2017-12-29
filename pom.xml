@@ -28,7 +28,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.globallogic.store.jersey.client</mainClass>
+                            <mainClass>com.globallogic.store.jersey.client.Launcher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
