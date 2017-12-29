@@ -2,6 +2,9 @@ package com.globallogic.store.jersey.client;
 
 import com.globallogic.store.jersey.common.*;
 import com.globallogic.store.jersey.exception.*;
+import com.globallogic.store.jersey.executor.OrderExecutor;
+import com.globallogic.store.jersey.executor.ProductExecutor;
+import com.globallogic.store.jersey.executor.UserExecutor;
 import com.globallogic.store.jersey.model.Order;
 import com.globallogic.store.jersey.model.Product;
 import com.globallogic.store.jersey.model.User;
@@ -72,27 +75,31 @@ public class Launcher {
 
         switch (type) {
             case USERS:
-                Executor<User> userExecutor = new Executor<>(Type.USERS);
+                UserExecutor userExecutor = new UserExecutor();
                 System.out.println(User.header());
                 System.out.println(User.separator());
+
                 for (User user : userExecutor.execute(command, key)) {
                     System.out.println(user);
                     System.out.println(User.separator());
                 }
+
                 break;
             case PRODUCTS:
-                Executor<Product> productExecutor = new Executor<>(Type.PRODUCTS);
+                ProductExecutor productExecutor = new ProductExecutor();
                 System.out.println(Product.header());
                 System.out.println(Product.separator());
+
                 for (Product product : productExecutor.execute(command, key)) {
                     System.out.println(product);
                     System.out.println(Product.separator());
                 }
                 break;
             case ORDERS:
-                Executor<Order> orderExecutor = new Executor<>(Type.ORDERS);
+                OrderExecutor orderExecutor = new OrderExecutor();
                 System.out.println(Order.header());
                 System.out.println(Order.separator());
+
                 for (Order order : orderExecutor.execute(command, key)) {
                     System.out.println(order);
                     System.out.println(Order.separator());
