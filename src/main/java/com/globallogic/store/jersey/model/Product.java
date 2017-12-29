@@ -1,22 +1,15 @@
 package com.globallogic.store.jersey.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 public class Product {
 
-    @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("name")
     private String name;
 
-    @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("price")
     private Double price;
 
     public Long getId() {

@@ -6,7 +6,7 @@ public enum Command {
 
     FIND_ALL("all"),
     FIND_BY_ID("id"),
-    FIND_BY_KEY("key"),
+    FIND_BY_KEY("find"),
     DELETE("delete");
 
     String command;

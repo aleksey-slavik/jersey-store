@@ -4,7 +4,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class User {
 
-    @JsonProperty("id")
     private Long id;
 
     @JsonProperty("firstname")
