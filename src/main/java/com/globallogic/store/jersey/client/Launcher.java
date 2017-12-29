@@ -2,6 +2,7 @@ package com.globallogic.store.jersey.client;
 
 import com.globallogic.store.jersey.common.*;
 import com.globallogic.store.jersey.exception.*;
+import com.globallogic.store.jersey.executor.Executor;
 import com.globallogic.store.jersey.executor.OrderExecutor;
 import com.globallogic.store.jersey.executor.ProductExecutor;
 import com.globallogic.store.jersey.executor.UserExecutor;
@@ -9,6 +10,7 @@ import com.globallogic.store.jersey.model.Order;
 import com.globallogic.store.jersey.model.Product;
 import com.globallogic.store.jersey.model.User;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Launcher {
@@ -16,7 +18,7 @@ public class Launcher {
     private static boolean isAuth = false;
     private static boolean isClose = false;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyResponseException {
         Scanner scanner = new Scanner(System.in);
         AuthValidator authValidator = new AuthValidator();
 
@@ -94,6 +96,7 @@ public class Launcher {
                     System.out.println(product);
                     System.out.println(Product.separator());
                 }
+
                 break;
             case ORDERS:
                 OrderExecutor orderExecutor = new OrderExecutor();
