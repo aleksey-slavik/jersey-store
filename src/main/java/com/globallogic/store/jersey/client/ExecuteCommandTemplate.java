@@ -11,9 +11,6 @@ import java.util.List;
 public class ExecuteCommandTemplate<T extends Entity> {
 
     public void execute(Command command, String key, ExecutorInterface<T> executor) throws EmptyResponseException, IllegalCommandException {
-        /*System.out.println(T.header());
-        System.out.println(T.separator());*/
-
         switch (command) {
             case FIND_ALL:
                 printItemList(executor.findAll());
@@ -34,12 +31,29 @@ public class ExecuteCommandTemplate<T extends Entity> {
     }
 
     private void printItemList(List<T> list) {
+        boolean isHeaderPrinted = false;
+
         for (T item : list) {
-            printSimpleItem(item);
+            if(!isHeaderPrinted) {
+                printHeader(item);
+                isHeaderPrinted = true;
+            }
+
+            printItem(item);
         }
     }
 
     private void printSimpleItem(T item) {
+        printHeader(item);
+        printItem(item);
+    }
+
+    private void printHeader(T item) {
+        System.out.println(item.header());
+        System.out.println(item.separator());
+    }
+
+    private void printItem(T item) {
         System.out.println(item);
         System.out.println(item.separator());
     }
