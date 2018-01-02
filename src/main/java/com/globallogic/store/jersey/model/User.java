@@ -1,36 +1,41 @@
 package com.globallogic.store.jersey.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+/**
+ * User bean
+ *
+ * @author oleksii.slavik
+ */
+public class User extends Entity {
 
-public class User {
-    @JsonProperty("id")
-    private Long id;
-
-    @JsonProperty("firstname")
+    /**
+     * First name of user
+     */
     private String firstname;
 
-    @JsonProperty("lastname")
+    /**
+     * Last name of user
+     */
     private String lastname;
 
-    @JsonProperty("username")
+    /**
+     * Username of user
+     */
     private String username;
 
-    @JsonProperty("password")
+    /**
+     * Password of user
+     */
     private String password;
 
-    @JsonProperty("email")
+    /**
+     * E-mail of user
+     */
     private String email;
 
-    @JsonProperty("role")
+    /**
+     * Role of user
+     */
     private String role;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstname() {
         return firstname;
@@ -80,18 +85,33 @@ public class User {
         this.role = role;
     }
 
-    private static String format = "%5s|%15s|%15s|%15s|%15s|%15s|%15s";
-
-    public static String header() {
-        return String.format(format, "id", "firstname", "lastname", "username", "password", "email", "role");
+    /**
+     * Header of table
+     *
+     * @return row of table
+     */
+    @Override
+    public String header() {
+        return row("Id", "Firstname", "Lastname", "Username", "Password", "Email", "Role");
     }
 
-    public static String separator() {
-        return "------------------------------------------------------------------------------------------------------";
+    /**
+     * Separator between table rows
+     *
+     * @return string representation of separator
+     */
+    @Override
+    public String separator() {
+        return separator(7);
     }
 
+    /**
+     * Formatted representation of user bean for console output
+     *
+     * @return string representation of user bean
+     */
     @Override
     public String toString() {
-        return String.format(format, id, firstname, lastname, username, password, email, role);
+        return row(Long.toString(getId()), firstname, lastname, username, password, email, role);
     }
 }

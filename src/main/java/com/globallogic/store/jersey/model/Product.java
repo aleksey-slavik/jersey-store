@@ -1,24 +1,31 @@
 package com.globallogic.store.jersey.model;
 
-public class Product {
+/**
+ * User bean
+ *
+ * @author oleksii.slavik
+ */
+public class Product extends Entity {
 
-    private Long id;
-
+    /**
+     * Product name
+     */
     private String name;
 
+    /**
+     * Product brand
+     */
     private String brand;
 
+    /**
+     * Product description
+     */
     private String description;
 
+    /**
+     * Priduct price
+     */
     private Double price;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -52,18 +59,33 @@ public class Product {
         this.price = price;
     }
 
-    private static String format = "%5s|%15s|%15s|%15s|%15s";
-
-    public static String header() {
-        return String.format(format, "id", "name", "brand", "description", "price");
+    /**
+     * Header of table
+     *
+     * @return row of table
+     */
+    @Override
+    public String header() {
+        return row("Id", "Name", "Brand", "Description", "Price");
     }
 
-    public static String separator() {
-        return "-------------------------------------------------------------------------";
+    /**
+     * Separator between table rows
+     *
+     * @return string representation of separator
+     */
+    @Override
+    public String separator() {
+        return separator(5);
     }
 
+    /**
+     * Formatted representation of order bean for console output
+     *
+     * @return string representation of order bean
+     */
     @Override
     public String toString() {
-        return String.format(format, id, name, brand, description, price);
+        return row(Long.toString(getId()), name, brand, description, Double.toString(price));
     }
 }

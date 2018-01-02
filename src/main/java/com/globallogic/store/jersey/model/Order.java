@@ -1,33 +1,33 @@
 package com.globallogic.store.jersey.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.List;
 
-public class Order {
+/**
+ * Order bean
+ *
+ * @author oleksii.slavik
+ */
+public class Order extends Entity {
 
-    @JsonProperty("id")
-    private Long id;
-
-    @JsonProperty("totalCost")
+    /**
+     * Total cost of order
+     */
     private Double totalCost;
 
-    @JsonProperty("user")
+    /**
+     * User, which make order
+     */
     private User user;
 
-    @JsonProperty("status")
+    /**
+     * Order status
+     */
     private String status;
 
-    @JsonProperty("items")
+    /**
+     * Product items of order
+     */
     private List<Product> products;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Double getTotalCost() {
         return totalCost;
@@ -61,18 +61,35 @@ public class Order {
         this.products = products;
     }
 
-    private static String format = "%5s|%15s|%15s|%15s|%15s";
-
-    public static String header() {
-        return String.format(format, "id", "total cost", "username", "status", "items count");
+    /**
+     * Header of table
+     *
+     * @return row of table
+     */
+    @Override
+    public String header() {
+        return row("Id", "Total cost", "Username", "Status", "Count of items");
     }
 
-    public static String separator() {
-        return "------------------------------------------------------------------------------------------------------";
+    /**
+     * Separator between table rows
+     *
+     * @return string representation of separator
+     */
+    @Override
+    public String separator() {
+        return null;
     }
 
+    /**
+     * Formatted representation of order bean for console output
+     *
+     * @return string representation of order bean
+     */
     @Override
     public String toString() {
-        return String.format(format, id, totalCost, user.getUsername(), status, products.size());
+        return row(Long.toString(getId()), Double.toString(totalCost), user.getUsername(), status, Integer.toString(products.size()));
     }
+
+
 }
