@@ -12,9 +12,9 @@ import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.List;
 
-public class UserExecutor {
+public class UserExecutor implements ExecutorInterface<User> {
 
-    private List<User> findAll() throws EmptyResponseException {
+    public List<User> findAll() throws EmptyResponseException {
         WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/users");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 
@@ -24,7 +24,7 @@ public class UserExecutor {
             throw new EmptyResponseException();
     }
 
-    private User findById(Long id) throws EmptyResponseException {
+    public User findById(Long id) throws EmptyResponseException {
         WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/users/" + id);
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 
@@ -35,7 +35,7 @@ public class UserExecutor {
 
     }
 
-    private List<User> findByKey(String key) throws EmptyResponseException {
+    public List<User> findByKey(String key) throws EmptyResponseException {
         WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/users/search/" + key);
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 
@@ -45,7 +45,7 @@ public class UserExecutor {
             throw new EmptyResponseException();
     }
 
-    private User delete(Long id) throws EmptyResponseException {
+    public User delete(Long id) throws EmptyResponseException {
         WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/users/" + id);
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).delete(ClientResponse.class);
 
@@ -53,22 +53,5 @@ public class UserExecutor {
             return response.getEntity(new GenericType<User>(){});
         else
             throw new EmptyResponseException();
-    }
-
-    public List<User> execute(Command command, String key) throws EmptyResponseException {
-        switch (command) {
-            case FIND_ALL:
-                return findAll();
-            case FIND_BY_ID:
-                Long id = Long.valueOf(key);
-                return Collections.singletonList(findById(id));
-            case FIND_BY_KEY:
-                return findByKey(key);
-            case DELETE:
-                id = Long.valueOf(key);
-                return Collections.singletonList(delete(id));
-        }
-
-        throw new IllegalStateException();
     }
 }

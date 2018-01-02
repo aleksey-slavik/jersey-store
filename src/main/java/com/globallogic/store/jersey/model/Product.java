@@ -72,7 +72,7 @@ public class Product extends Entity {
     /**
      * Separator between table rows
      *
-     * @return string representation of separator
+     * @return string representation of printSeparator
      */
     @Override
     public String separator() {

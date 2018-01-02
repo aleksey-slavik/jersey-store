@@ -13,9 +13,9 @@ public abstract class Entity {
     private static final String FORMAT = "%15s|";
 
     /**
-     * Count of chars of one cell of separator
+     * Count of chars of one cell of printSeparator
      */
-    private static final int CELL_LENGTH = 15;
+    private static final int CELL_LENGTH = 16;
 
     /**
      * Separator char
@@ -49,7 +49,7 @@ public abstract class Entity {
      * Separator for given column count
      *
      * @param columnCount count of columns
-     * @return string representation of separator
+     * @return string representation of printSeparator
      */
     public String separator(int columnCount) {
         StringBuilder builder = new StringBuilder();
@@ -86,7 +86,7 @@ public abstract class Entity {
     /**
      * Separator between table rows
      *
-     * @return string representation of separator
+     * @return string representation of printSeparator
      */
     public abstract String separator();
 }

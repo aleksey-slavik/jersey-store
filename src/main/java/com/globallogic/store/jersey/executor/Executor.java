@@ -3,13 +3,14 @@ package com.globallogic.store.jersey.executor;
 import com.globallogic.store.jersey.common.ClientInstance;
 import com.globallogic.store.jersey.common.Type;
 import com.globallogic.store.jersey.exception.EmptyResponseException;
+import com.globallogic.store.jersey.model.Entity;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-public class Executor<T> implements ExecutorInterface<T> {
+public class Executor<T extends Entity> implements ExecutorInterface<T> {
 
     private Type type;
 

@@ -27,7 +27,7 @@ public class Order extends Entity {
     /**
      * Product items of order
      */
-    private List<Product> products;
+    private List<Product> items;
 
     public Double getTotalCost() {
         return totalCost;
@@ -53,12 +53,12 @@ public class Order extends Entity {
         this.status = status;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Product> getItems() {
+        return items;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setItems(List<Product> items) {
+        this.items = items;
     }
 
     /**
@@ -74,11 +74,11 @@ public class Order extends Entity {
     /**
      * Separator between table rows
      *
-     * @return string representation of separator
+     * @return string representation of printSeparator
      */
     @Override
     public String separator() {
-        return null;
+        return separator(5);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Order extends Entity {
      */
     @Override
     public String toString() {
-        return row(Long.toString(getId()), Double.toString(totalCost), user.getUsername(), status, Integer.toString(products.size()));
+        return row(Long.toString(getId()), Double.toString(totalCost), user.getUsername(), status, Integer.toString(items.size()));
     }
 
 

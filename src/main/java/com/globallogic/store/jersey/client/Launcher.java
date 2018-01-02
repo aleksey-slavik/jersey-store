@@ -2,15 +2,9 @@ package com.globallogic.store.jersey.client;
 
 import com.globallogic.store.jersey.common.*;
 import com.globallogic.store.jersey.exception.*;
-import com.globallogic.store.jersey.executor.Executor;
-import com.globallogic.store.jersey.executor.OrderExecutor;
-import com.globallogic.store.jersey.executor.ProductExecutor;
-import com.globallogic.store.jersey.executor.UserExecutor;
-import com.globallogic.store.jersey.model.Order;
-import com.globallogic.store.jersey.model.Product;
-import com.globallogic.store.jersey.model.User;
+import com.globallogic.store.jersey.executor.*;
+import com.globallogic.store.jersey.model.*;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Launcher {
@@ -18,7 +12,7 @@ public class Launcher {
     private static boolean isAuth = false;
     private static boolean isClose = false;
 
-    public static void main(String[] args) throws EmptyResponseException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AuthValidator authValidator = new AuthValidator();
 
@@ -77,36 +71,13 @@ public class Launcher {
 
         switch (type) {
             case USERS:
-                UserExecutor userExecutor = new UserExecutor();
-                System.out.println(User.header());
-                System.out.println(User.separator());
-
-                for (User user : userExecutor.execute(command, key)) {
-                    System.out.println(user);
-                    System.out.println(User.separator());
-                }
-
+                new ExecuteCommandTemplate<User>().execute(command, key, new UserExecutor());
                 break;
             case PRODUCTS:
-                ProductExecutor productExecutor = new ProductExecutor();
-                System.out.println(Product.header());
-                System.out.println(Product.separator());
-
-                for (Product product : productExecutor.execute(command, key)) {
-                    System.out.println(product);
-                    System.out.println(Product.separator());
-                }
-
+                new ExecuteCommandTemplate<Product>().execute(command, key, new ProductExecutor());
                 break;
             case ORDERS:
-                OrderExecutor orderExecutor = new OrderExecutor();
-                System.out.println(Order.header());
-                System.out.println(Order.separator());
-
-                for (Order order : orderExecutor.execute(command, key)) {
-                    System.out.println(order);
-                    System.out.println(Order.separator());
-                }
+                new ExecuteCommandTemplate<Order>().execute(command, key, new OrderExecutor());
         }
     }
 }
