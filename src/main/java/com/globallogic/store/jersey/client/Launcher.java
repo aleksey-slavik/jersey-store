@@ -7,15 +7,31 @@ import com.globallogic.store.jersey.model.*;
 
 import java.util.Scanner;
 
+/**
+ * Application entry point
+ *
+ * @author oleksii.slavik
+ */
 public class Launcher {
 
+    /**
+     * True if current user is successfully authenticated, false otherwise
+     */
     private static boolean isAuth = false;
+
+    /**
+     * True if user want to close application, false otherwise
+     */
     private static boolean isClose = false;
 
+    /**
+     * Application entry point
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AuthValidator authValidator = new AuthValidator();
 
+        //Login process
         while (!isAuth) {
             System.out.println("Enter your username:");
             String username = scanner.nextLine();
@@ -36,6 +52,7 @@ public class Launcher {
         System.out.println("type command [parameter]");
         System.out.println("----------------------------------------");
 
+        //Wait for commands from user
         while (!isClose) {
             String request = scanner.nextLine();
 
@@ -58,6 +75,15 @@ public class Launcher {
         }
     }
 
+    /**
+     * Parse given request and execute that
+     *
+     * @param request given request
+     * @throws IllegalTypeException    throws when call unknown command type
+     * @throws IllegalCommandException throws when call unknown command
+     * @throws WrongRequestException   throws when request consist incorrect count of words
+     * @throws EmptyResponseException  throws when response is empty
+     */
     private static void execute(String request) throws IllegalTypeException, IllegalCommandException, WrongRequestException, EmptyResponseException {
         String[] parts = request.split(" ");
 

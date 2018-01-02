@@ -10,14 +10,29 @@ import com.sun.jersey.api.client.WebResource;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+/**
+ * Execute request of given type
+ *
+ * @param <T> given type
+ * @author oleksii.slavik
+ */
 public class Executor<T extends Entity> implements ExecutorInterface<T> {
 
+    /**
+     * Command type
+     */
     private Type type;
 
     public Executor(Type type) {
         this.type = type;
     }
 
+    /**
+     * Find list of all items
+     *
+     * @return list of all items
+     * @throws EmptyResponseException throws when response is empty
+     */
     public List<T> findAll() throws EmptyResponseException {
         return new ExecutorTemplate<List<T>>().execute(new ExecutorCallback() {
             @Override
@@ -28,6 +43,13 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
         });
     }
 
+    /**
+     * Find item by given id
+     *
+     * @param id given item id
+     * @return item with given id
+     * @throws EmptyResponseException throws when response is empty
+     */
     public T findById(final Long id) throws EmptyResponseException {
         return new ExecutorTemplate<T>().execute(new ExecutorCallback() {
             @Override
@@ -38,6 +60,13 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
         });
     }
 
+    /**
+     * Find list of items by given key
+     *
+     * @param key given key
+     * @return list of found items
+     * @throws EmptyResponseException throws when response is empty
+     */
     public List<T> findByKey(final String key) throws EmptyResponseException {
         return new ExecutorTemplate<List<T>>().execute(new ExecutorCallback() {
             @Override
@@ -48,6 +77,13 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
         });
     }
 
+    /**
+     * Delete item with given id
+     *
+     * @param id given item id
+     * @return deleted item
+     * @throws EmptyResponseException throws when response is empty
+     */
     public T delete(final Long id) throws EmptyResponseException {
         return new ExecutorTemplate<T>().execute(new ExecutorCallback() {
             @Override
