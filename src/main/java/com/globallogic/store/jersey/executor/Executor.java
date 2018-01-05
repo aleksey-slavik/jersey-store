@@ -16,7 +16,7 @@ import java.util.List;
  * @param <T> given type
  * @author oleksii.slavik
  */
-public class Executor<T extends Entity> implements ExecutorInterface<T> {
+public class Executor<T extends Entity> implements DAOAccessible<T> {
 
     /**
      * Command type
@@ -34,7 +34,7 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
      * @throws EmptyResponseException throws when response is empty
      */
     public List<T> findAll() throws EmptyResponseException {
-        return new ExecutorTemplate<List<T>>().execute(new ExecutorCallback() {
+        return new ExecutorTemplate<List<T>>().execute(new Executable() {
             @Override
             public ClientResponse execute() {
                 WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType());
@@ -51,7 +51,7 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
      * @throws EmptyResponseException throws when response is empty
      */
     public T findById(final Long id) throws EmptyResponseException {
-        return new ExecutorTemplate<T>().execute(new ExecutorCallback() {
+        return new ExecutorTemplate<T>().execute(new Executable() {
             @Override
             public ClientResponse execute() {
                 WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/" + id);
@@ -68,7 +68,7 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
      * @throws EmptyResponseException throws when response is empty
      */
     public List<T> findByKey(final String key) throws EmptyResponseException {
-        return new ExecutorTemplate<List<T>>().execute(new ExecutorCallback() {
+        return new ExecutorTemplate<List<T>>().execute(new Executable() {
             @Override
             public ClientResponse execute() {
                 WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/search/" + key);
@@ -85,7 +85,7 @@ public class Executor<T extends Entity> implements ExecutorInterface<T> {
      * @throws EmptyResponseException throws when response is empty
      */
     public T delete(final Long id) throws EmptyResponseException {
-        return new ExecutorTemplate<T>().execute(new ExecutorCallback() {
+        return new ExecutorTemplate<T>().execute(new Executable() {
             @Override
             public ClientResponse execute() {
                 WebResource webResource = ClientInstance.getInstance().getClient().resource("http://localhost:8080/" + type.getType() + "/" + id);

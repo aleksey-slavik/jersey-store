@@ -3,7 +3,7 @@ package com.globallogic.store.jersey.client;
 import com.globallogic.store.jersey.common.Command;
 import com.globallogic.store.jersey.exception.EmptyResponseException;
 import com.globallogic.store.jersey.exception.IllegalCommandException;
-import com.globallogic.store.jersey.executor.ExecutorInterface;
+import com.globallogic.store.jersey.executor.DAOAccessible;
 import com.globallogic.store.jersey.model.Entity;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class ExecuteCommandTemplate<T extends Entity> {
      * @throws EmptyResponseException  throws when response is empty
      * @throws IllegalCommandException throws when call unknown command
      */
-    public void execute(Command command, String key, ExecutorInterface<T> executor) throws EmptyResponseException, IllegalCommandException {
+    public void execute(Command command, String key, DAOAccessible<T> executor) throws EmptyResponseException, IllegalCommandException {
         switch (command) {
             case FIND_ALL:
                 printItemList(executor.findAll());

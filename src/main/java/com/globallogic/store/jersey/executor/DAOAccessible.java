@@ -11,7 +11,7 @@ import java.util.List;
  * @param <T> given type
  * @author oleksii.slavik
  */
-public interface ExecutorInterface<T extends Entity> {
+public interface DAOAccessible<T extends Entity> {
 
     /**
      * Find list of all items

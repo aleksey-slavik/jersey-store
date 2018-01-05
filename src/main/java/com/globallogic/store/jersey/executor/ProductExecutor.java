@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author oleksii.slavik
  */
-public class ProductExecutor implements ExecutorInterface<Product> {
+public class ProductExecutor implements DAOAccessible<Product> {
 
     /**
      * Find list of all items

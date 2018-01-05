@@ -7,6 +7,6 @@ import com.sun.jersey.api.client.ClientResponse;
  *
  * @author oleksii.slavik
  */
-public interface ExecutorCallback {
+public interface Executable {
     ClientResponse execute();
 }

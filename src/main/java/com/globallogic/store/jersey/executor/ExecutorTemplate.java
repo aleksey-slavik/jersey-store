@@ -15,12 +15,12 @@ public class ExecutorTemplate<T> {
     /**
      * Execute request
      *
-     * @param executorCallback executor details
+     * @param executable executor details
      * @return response entity
      * @throws EmptyResponseException throws when response is empty
      */
-    public T execute(ExecutorCallback executorCallback) throws EmptyResponseException {
-        ClientResponse response = executorCallback.execute();
+    public T execute(Executable executable) throws EmptyResponseException {
+        ClientResponse response = executable.execute();
 
         if (response.hasEntity())
             return response.getEntity(new GenericType<T>() {

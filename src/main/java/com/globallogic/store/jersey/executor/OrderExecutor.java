@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author oleksii.slavik
  */
-public class OrderExecutor implements ExecutorInterface<Order> {
+public class OrderExecutor implements DAOAccessible<Order> {
 
     /**
      * Find list of all items
